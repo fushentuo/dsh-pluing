@@ -1,0 +1,6 @@
+# 背景替换插件（bundle 补丁层）
+# 插入一个自引用的 loader 行：name 指向本包，宿主半侧为空实现，
+# 客户端半侧（lib/client.js）由 dsh.client 声明组合进浏览器应用。
+- insert:
+    - id: background-wallpaper
+      name: '@deepseek-ai/dsh-background-wallpaper'
