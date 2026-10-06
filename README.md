@@ -28,7 +28,7 @@ dsh plugin install <本目录的绝对路径>
 
 ## 说明
 
-- 图片壁纸以 data URL 持久化到浏览器 `localStorage`，刷新后仍然保留；填充方式与不透明度同样持久化（状态带 schema 版本号，旧记录会自动迁移到「铺满」）。
-- 视频壁纸使用 `URL.createObjectURL` 的 blob URL，仅当前会话有效（浏览器安全限制，无法跨刷新保留）。
+- **持久化**：图片和视频壁纸都以原始文件（Blob）保存到浏览器 **IndexedDB**，重启应用后自动恢复——不受 `localStorage` 约 5MB 的容量限制，大图/视频也能保存。填充方式与不透明度等小配置存于 `localStorage`。
+- 每次启动时会从 IndexedDB 读出 Blob 并生成新的 `object URL` 用于显示，因此无需担心 URL 过期。
 - 不透明度通过 `theme.overrideTokens` 叠加半透明背景 token 实现；深浅色两套色值在插件启动时一次性读取并缓存，主题明暗切换由主题服务自动选值，不透明度调整是幂等的，可反复拖动。
 - 留白处的模糊底衬是把同一张图片作为 `background-image` 再叠加 `filter: blur()`，无需第二份解码；视频在「完整」模式下留白显示主题底色。
